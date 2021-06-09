@@ -1,6 +1,6 @@
 
 public class Gerente extends Funcionario{
-	public int senha;
+	private int senha;
 	
 	public void setSenha(int senha) {
 		this.senha = senha;
