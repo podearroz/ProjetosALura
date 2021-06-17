@@ -1,3 +1,4 @@
+package Alura;
 import java.sql.SQLException;
 
 public class TestaPoolConexoes {
