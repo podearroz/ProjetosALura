@@ -1,43 +1,35 @@
-package com.example.demo.modelo;
+package com.example.demo.form;
 
 import java.math.BigDecimal;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 
-@Entity
-public class Carros {
+import org.hibernate.validator.constraints.Length;
+
+import com.example.demo.modelo.Carros;
+import com.example.demo.repository.CarroRepository;
+import com.sun.istack.NotNull;
+
+
+
+public class CarroForm {
 	
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@NotBlank @NotEmpty @Length(max=20)
 	private String chassi;
+	@NotEmpty @NotBlank 
 	private String nome;
+	@NotEmpty @NotBlank
 	private String marca;
+	@NotEmpty @NotBlank
 	private String cor;
+	@NotNull
 	private BigDecimal valor;
+	@NotNull 
 	private int anoFabricacao;
 	
-	public Carros() {
-		
-	}
 	
-	public Carros(String chassi, String nome, String marca, String cor, BigDecimal valor, int anoFabricacao) {		
-		this.chassi = chassi;
-		this.nome = nome;
-		this.marca = marca;
-		this.cor = cor;
-		this.valor = valor;
-		this.anoFabricacao = anoFabricacao;
-	}
 	
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
 	public String getChassi() {
 		return chassi;
 	}
@@ -68,14 +60,17 @@ public class Carros {
 	public void setValor(BigDecimal valor) {
 		this.valor = valor;
 	}
-
-	public int getAnoFabricacao() {
+	
+	 public int getAnoFabricacao() {
 		return anoFabricacao;
 	}
-
 	public void setAnoFabricacao(int anoFabricacao) {
 		this.anoFabricacao = anoFabricacao;
 	}
-	
-	
+	public Carros converter(CarroRepository carroRepository) {
+		 Carros carro = carroRepository.findByNome(nome);
+		 return new Carros(chassi, nome, marca, cor, valor, anoFabricacao);
+	}
 }
+	
+	
