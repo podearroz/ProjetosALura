@@ -1,6 +1,6 @@
 package com.example.demo.repository;
 
-import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -8,6 +8,10 @@ import com.example.demo.modelo.Carros;
 
 public interface CarroRepository extends JpaRepository<Carros, Long> {
 
-	Carros findByNome(@NotBlank String nome);
+	List<Carros> findByNome(String nome);
+
+	List<Carros> findByCor(String cor);
+	
+	
 
 }

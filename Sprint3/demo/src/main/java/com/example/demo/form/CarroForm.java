@@ -1,6 +1,7 @@
 package com.example.demo.form;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -68,7 +69,7 @@ public class CarroForm {
 		this.anoFabricacao = anoFabricacao;
 	}
 	public Carros converter(CarroRepository carroRepository) {
-		 Carros carro = carroRepository.findByNome(nome);
+		 List<Carros> carro = carroRepository.findByNome(nome);
 		 return new Carros(chassi, nome, marca, cor, valor, anoFabricacao);
 	}
 }
