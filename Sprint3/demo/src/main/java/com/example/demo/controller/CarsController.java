@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -35,7 +34,7 @@ import com.example.demo.repository.CarroRepository;
 
 
 
-@CrossOrigin(origins = "http://localhost:8080/api/cars", maxAge = 3600)
+@CrossOrigin()
 @RestController
 @RequestMapping("/api")
 public class CarsController {
@@ -44,31 +43,25 @@ public class CarsController {
 	private CarroRepository carroRepository;
 	
 	@GetMapping("/cars")
-	public List<Carros> listar(@RequestParam(value="nome", defaultValue = "") String nome, @RequestParam(value="cor", defaultValue = "") String cor,
-			@RequestParam(value="marca", defaultValue = "") String marca) {
+	public List<CarrosDto> listar(String nome, String cor,String marca) {
 		
-//		if(nome != null) {
-//			List<Carros> carros = carroRepository.findByNome(nome);
-//			return carros;
-//		}
-//	
-//		if(cor !=null) {
-//				List<Carros> carros = carroRepository.findByCor(cor);
-//				return carros;
-//		}
-//		
-//		if(marca != null) {
-//					List<Carros> carros = carroRepository.findByMarca(marca);
-//					return carros;
-//		}			
-					List<Carros> carros = carroRepository.findAll();
-					return carros;		
+		if(nome != null) {
+			List<Carros> carros = carroRepository.findByNome(nome);
+			return CarrosDto.converter(carros);
+		} else if(cor !=null) {
+			List<Carros> carros = carroRepository.findByCor(cor);
+			return CarrosDto.converter(carros);
+			} else if(marca != null) {
+				List<Carros> carros = carroRepository.findByMarca(marca);
+				return CarrosDto.converter(carros);
+			}else {
+			List<Carros> carros = carroRepository.findAll();
+			return CarrosDto.converter(carros);	
+		}
+	
 	}
-//	@RequestParam(value="ano", defaultValue = "") int anoFabricacao
-//					else if(anoFabricacao !=0) {
-//							List<Carros> carros = carroRepository.findByAno(anoFabricacao);
-//							return carros;
-//							}
+
+
 							
 				
 				
