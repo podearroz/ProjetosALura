@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.math.BigDecimal;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
@@ -8,6 +9,9 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -43,7 +47,9 @@ public class CarsController {
 	private CarroRepository carroRepository;
 	
 	@GetMapping("/cars")
-	public List<CarrosDto> listar(String nome, String cor,String marca) {
+	public List<CarrosDto> listar(String nome, String cor,String marca, BigDecimal valor) {
+		
+
 		
 		if(nome != null) {
 			List<Carros> carros = carroRepository.findByNome(nome);
@@ -53,6 +59,10 @@ public class CarsController {
 			return CarrosDto.converter(carros);
 			} else if(marca != null) {
 				List<Carros> carros = carroRepository.findByMarca(marca);
+				return CarrosDto.converter(carros);
+			}else if(valor != null){
+				Pageable SortAsc = PageRequest.of(0, 10, Sort.by("valor").ascending());
+				List<Carros> carros = carroRepository.findByValor(valor, SortAsc);
 				return CarrosDto.converter(carros);
 			}else {
 			List<Carros> carros = carroRepository.findAll();
