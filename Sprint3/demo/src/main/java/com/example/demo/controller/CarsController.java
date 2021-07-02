@@ -9,6 +9,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,24 +35,52 @@ import com.example.demo.repository.CarroRepository;
 
 
 
-
+@CrossOrigin(origins = "http://localhost:8080/api/cars", maxAge = 3600)
 @RestController
-@RequestMapping("/cars")
+@RequestMapping("/api")
 public class CarsController {
 		
 	@Autowired
 	private CarroRepository carroRepository;
 	
-	@GetMapping()
-	public List<Carros> listar(@RequestParam String nome, String cor, String marca, String anoFabricacao) {
-		//List<Carros> carro = carroRepository.findByNome(nome);
-		List<Carros> carros = carroRepository.findByCor(cor);
-		//List<Carros> carros = carroRepository.findByMarca(marca);
-		//List<Carros> carros = carroRepository.findByAno(anoFabricacao);
-		return carros;
+	@GetMapping("/cars")
+	public List<Carros> listar(@RequestParam(value="nome", defaultValue = "") String nome, @RequestParam(value="cor", defaultValue = "") String cor,
+			@RequestParam(value="marca", defaultValue = "") String marca) {
+		
+//		if(nome != null) {
+//			List<Carros> carros = carroRepository.findByNome(nome);
+//			return carros;
+//		}
+//	
+//		if(cor !=null) {
+//				List<Carros> carros = carroRepository.findByCor(cor);
+//				return carros;
+//		}
+//		
+//		if(marca != null) {
+//					List<Carros> carros = carroRepository.findByMarca(marca);
+//					return carros;
+//		}			
+					List<Carros> carros = carroRepository.findAll();
+					return carros;		
 	}
-	
-	@GetMapping("/{id}")
+//	@RequestParam(value="ano", defaultValue = "") int anoFabricacao
+//					else if(anoFabricacao !=0) {
+//							List<Carros> carros = carroRepository.findByAno(anoFabricacao);
+//							return carros;
+//							}
+							
+				
+				
+			
+			
+		
+		
+		 
+
+//		}
+
+	@GetMapping("/cars/{id}")
 	public ResponseEntity<CarrosDto> detalhar(@PathVariable Long id) {
 		Optional<Carros> topico = carroRepository.findById(id);
 		if(topico.isPresent()) {
@@ -71,7 +100,7 @@ public class CarsController {
 		URI uri = uriBuilder.path("/cars/{id}").buildAndExpand(carro.getId()).toUri();
 		return ResponseEntity.created(uri).body(new CarrosDto(carro));
 	}
-	@PutMapping("/{id}")
+	@PutMapping("/cars/{id}")
 	@Transactional
 	public ResponseEntity<CarrosDto> atualizar(@PathVariable Long id, @RequestBody @Valid AtualizacaoCarroForm form) {
 		Optional<Carros> optional = carroRepository.findById(id);
@@ -83,7 +112,7 @@ public class CarsController {
 		return ResponseEntity.notFound().build();
 	}
 	
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/cars/{id}")
 	@Transactional
 	public ResponseEntity<?> remover (@PathVariable Long id){
 		Optional<Carros> optional = carroRepository.findById(id);

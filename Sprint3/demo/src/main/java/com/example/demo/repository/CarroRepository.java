@@ -6,12 +6,17 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.demo.modelo.Carros;
 
-public interface CarroRepository extends JpaRepository<Carros, Long> {
+public interface CarroRepository extends JpaRepository<Carros, Long>{
 
 	List<Carros> findByNome(String nome);
 
 	List<Carros> findByCor(String cor);
-	
+
+	List<Carros> findByMarca(String marca);
+
+//	List<Carros> findByAno(int anoFabricacao);
+
+
 	
 
 }
