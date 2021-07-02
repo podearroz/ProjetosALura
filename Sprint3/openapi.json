@@ -1,0 +1,252 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "API de carros",
+    "description": "API para uma controlar uma loja de carros.",
+    "version": "0.0.1",
+    "termsOfService": "http://mockapi.io",
+    "contact": {
+      "name": "Suporte para Devs",
+      "email": "contato@exemplo.com"
+    }
+  },
+  "externalDocs": {
+    "description": "Documentos burocraticos",
+    "url": "http://mockapi.io"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080/api",
+      "description": "API de testes"
+    }
+  ],
+  "paths": {
+    "/cars": {
+      "get": {
+        "summary": "Recupera todos os carros",
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "chassi": {
+                        "type": "string"
+                      },
+                      "nome": {
+                        "type": "string"
+                      },
+                      "marca": {
+                        "type": "string"
+                      },
+                      "cor": {
+                        "type": "string"
+                      },
+                      "ano": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Cria um novo carro",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "chassi": {
+                      "type": "string"
+                    },
+                    "nome": {
+                      "type": "string"
+                    },
+                    "marca": {
+                      "type": "string"
+                    },
+                    "cor": {
+                      "type": "string"
+                    },
+                    "ano": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Sucesso"
+          }
+        }
+      }
+    },
+    "/cars/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "schema": {
+            "type": "integer"
+          },
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Recupera os carros por ID",
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "chassi": {
+                        "type": "string"
+                      },
+                      "nome": {
+                        "type": "string"
+                      },
+                      "marca": {
+                        "type": "string"
+                      },
+                      "cor": {
+                        "type": "string"
+                      },
+                      "ano": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "ID não encontrado",
+            "content": {
+              "application/json": {
+                "example": "Not found"
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Atualiza os carros por ID",
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/jason": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "chassi": {
+                        "type": "string"
+                      },
+                      "nome": {
+                        "type": "string"
+                      },
+                      "marca": {
+                        "type": "string"
+                      },
+                      "cor": {
+                        "type": "string"
+                      },
+                      "ano": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "ID não encontrado",
+            "content": {
+              "application/json": {
+                "example": "Not found"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Deleta os carros por ID",
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/jason": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "chassi": {
+                        "type": "string"
+                      },
+                      "nome": {
+                        "type": "string"
+                      },
+                      "marca": {
+                        "type": "string"
+                      },
+                      "cor": {
+                        "type": "string"
+                      },
+                      "ano": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "ID não encontrado",
+            "content": {
+              "application/json": {
+                "example": "Not found"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
