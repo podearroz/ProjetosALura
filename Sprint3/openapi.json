@@ -6,13 +6,13 @@
     "version": "0.0.1",
     "termsOfService": "http://mockapi.io",
     "contact": {
-      "name": "Suporte para Devs",
-      "email": "contato@exemplo.com"
+      "name": "Desenvolvedor",
+      "email": "jhonatan.bandie_BOLS@compasso.com.br"
     }
   },
   "externalDocs": {
-    "description": "Documentos burocraticos",
-    "url": "http://mockapi.io"
+    "description": "README",
+    "url": "https://github.com/podearroz/ProjetosALura/blob/master/Sprint3/README.txt"
   },
   "servers": [
     {
