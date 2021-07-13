@@ -82,11 +82,6 @@ class FinalizarLeilaoServiceTest {
 			Mockito.verifyNoInteractions(enviadorDeEmails);
 		} catch (Exception e) {}
 		
-			
-						
-		
-		
-		
 	}
 	
 	private List<Leilao> leiloes() {
