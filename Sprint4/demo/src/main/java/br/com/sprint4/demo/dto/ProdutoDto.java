@@ -13,7 +13,7 @@ public class ProdutoDto {
 		
 		
 		this.descricao = produto.getDescricao();
-		this.precoUnitario = produto.getPrecoUnitario();
+		this.preco_unitario = produto.getPrecoUnitario();
 	}
 
 	public ProdutoDto() {
@@ -23,7 +23,7 @@ public class ProdutoDto {
 	
 	
 	private String descricao;
-	private BigDecimal precoUnitario;
+	private BigDecimal preco_unitario;
 	
 	public String getDescricao() {
 		return descricao;
@@ -32,10 +32,10 @@ public class ProdutoDto {
 		this.descricao = descricao;
 	}
 	public BigDecimal getPrecoUnitario() {
-		return precoUnitario;
+		return preco_unitario;
 	}
 	public void setPrecoUnitario(BigDecimal precoUnitario) {
-		this.precoUnitario = precoUnitario;
+		this.preco_unitario = precoUnitario;
 	}
 	
 	
@@ -43,4 +43,5 @@ public class ProdutoDto {
 		return produto.map(ProdutoDto::new);
 	
 	}
-}
+
+	}

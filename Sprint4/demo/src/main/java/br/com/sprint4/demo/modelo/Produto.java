@@ -13,13 +13,15 @@ public class Produto {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String descricao;
-	private BigDecimal precoUnitario;
+	private BigDecimal preco_unitario;
 	
+	public Produto() {
+		
+	}
 	
-	
-	public Produto(String descricao,BigDecimal precoUnitario) {
+	public Produto(String descricao,BigDecimal preco_unitario) {
 		this.descricao= descricao;
-		this.precoUnitario= precoUnitario;
+		this.preco_unitario= preco_unitario;
 	}
 	 
 	public Long getId() {
@@ -35,10 +37,10 @@ public class Produto {
 		this.descricao = descricao;
 	}
 	public BigDecimal getPrecoUnitario() {
-		return precoUnitario;
+		return preco_unitario;
 	}
-	public void setPrecoUnitario(BigDecimal precoUnitario) {
-		this.precoUnitario = precoUnitario;
+	public void setPrecoUnitario(BigDecimal preco_unitario) {
+		this.preco_unitario = preco_unitario;
 	}
 
 	

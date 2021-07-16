@@ -23,34 +23,35 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.sprint4.demo.dto.ProdutoDto;
-import br.com.sprint4.demo.form.AtualizacaoProdutoForm;
-import br.com.sprint4.demo.form.ProdutoForm;
-import br.com.sprint4.demo.modelo.Produto;
-import br.com.sprint4.demo.repository.ProdutoRepository;
+import br.com.sprint4.demo.dto.PedidoDto;
+import br.com.sprint4.demo.form.AtualizacaoPedidoForm;
+import br.com.sprint4.demo.form.PedidoForm;
+import br.com.sprint4.demo.modelo.Pedido;
+import br.com.sprint4.demo.repository.PedidoRepository;
 
 @RestController
-@RequestMapping("/produtos")
-public class ProdutoController {
+@RequestMapping("/pedidos")
+public class PedidoController {
+	
 	
 	@Autowired
-	private ProdutoRepository produtoRepository;
+	private PedidoRepository pedidoRepository;
 	
 	@PostMapping
 	@Transactional
-	public ResponseEntity<ProdutoDto> cadastrar(@RequestBody @Valid ProdutoForm form, UriComponentsBuilder uriBuilder) {
-		Produto produto = form.converter();
-		produtoRepository.save(produto);
+	public ResponseEntity<PedidoDto> adicionar(@RequestBody @Valid PedidoForm form, UriComponentsBuilder uriBuilder){
+		Pedido pedido = form.converter();
+		pedidoRepository.save(pedido);
 		
-		URI uri = uriBuilder.path("/produtos/{id}").buildAndExpand(produto.getId()).toUri();
-		return ResponseEntity.created(uri).body(new ProdutoDto(produto));
-		
+		URI uri = uriBuilder.path("/pedidos/{id}").buildAndExpand(pedido.getId()).toUri();
+		return ResponseEntity.created(uri).body(new PedidoDto());
 	}
+	
 	@GetMapping("/{id}")
-	public ResponseEntity<ProdutoDto> detalhar(@PathVariable Long id) {
-		Optional<Produto> produto = produtoRepository.findById(id);
-		if(produto.isPresent()) {
-			return ResponseEntity.ok(new ProdutoDto(produto.get()));
+	public ResponseEntity<PedidoDto> detalhar(@PathVariable Long id) {
+		Optional<Pedido> pedido = pedidoRepository.findById(id);
+		if(pedido.isPresent()) {
+			return ResponseEntity.ok(new PedidoDto());
 		}
 		
 		return ResponseEntity.notFound().build();
@@ -58,29 +59,31 @@ public class ProdutoController {
 	}
 	
 	@GetMapping()
-	public Page<ProdutoDto> lista(@RequestParam(required = false) String descricao, 
+	public Page<Pedido> lista(@RequestParam(required = false) String descricao, 
 			@PageableDefault( sort = "id", direction = Direction.DESC) Pageable paginacao) {
 		
 		
 		
 		
 		if (descricao == null) {
-			Page<Produto> produtos = produtoRepository.findAll(paginacao);
-			return ProdutoDto.converter(produtos);
+			Page<Pedido> pedidos = pedidoRepository.findAll(paginacao);
+			return PedidoDto.converter(pedidos);
 		} else {
-			Page<Produto> topicos =produtoRepository.findByDescricao(descricao, paginacao);
-			return ProdutoDto.converter(topicos);
+			@SuppressWarnings("unchecked")
+			Page<Pedido> pedidos =(Page<Pedido>) pedidoRepository.findAll();
+			return PedidoDto.converter(pedidos);
 		}
 		
 	}
 	
 	@PutMapping("/{id}")
 	@Transactional
-	public ResponseEntity<ProdutoDto> atualizar(@PathVariable Long id, @RequestBody @Valid AtualizacaoProdutoForm form) {
-		Optional<Produto> optional = produtoRepository.findById(id);
+	public ResponseEntity<PedidoDto> atualizar(@PathVariable Long id, @RequestBody @Valid AtualizacaoPedidoForm form) {
+		Optional<Pedido> optional = pedidoRepository.findById(id);
 		if(optional.isPresent()) {
-			Produto produto = form.atualizar(id, produtoRepository);
-			return ResponseEntity.ok(new ProdutoDto(produto));
+			@SuppressWarnings("unused")
+			Pedido pedido = form.atualizar(id, pedidoRepository);
+			return ResponseEntity.ok(new PedidoDto());
 		}
 		
 		return ResponseEntity.notFound().build();
@@ -91,17 +94,13 @@ public class ProdutoController {
 	@DeleteMapping("/{id}")
 	@Transactional
 	public ResponseEntity<?> remover (@PathVariable Long id){
-		Optional<Produto> optional = produtoRepository.findById(id);
+		Optional<Pedido> optional = pedidoRepository.findById(id);
 		if(optional.isPresent()) {
-			produtoRepository.deleteById(id);
+			pedidoRepository.deleteById(id);
 			return ResponseEntity.ok().build();
 		}
 		
 		return ResponseEntity.notFound().build();
 		
 	}
-	
-	
-		
 }
-

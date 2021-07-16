@@ -3,7 +3,6 @@ package br.com.sprint4.demo.form;
 import java.math.BigDecimal;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 import br.com.sprint4.demo.modelo.Produto;
 
@@ -13,8 +12,8 @@ public class ProdutoForm {
 	
 	@NotBlank
 	private String descricao;	
-	@NotNull
-	private BigDecimal precoUnitario;
+	
+	private BigDecimal preco_unitario;
 	
 
 	public String getDescricao() {
@@ -26,15 +25,15 @@ public class ProdutoForm {
 	}
 
 	public BigDecimal getPrecoUnitaraio() {
-		return precoUnitario;
+		return preco_unitario;
 	}
 
 	public void setPrecoUnitaraio(BigDecimal precoUnitaraio) {
-		this.precoUnitario = precoUnitaraio;
+		this.preco_unitario = precoUnitaraio;
 	}
 
 	public Produto converter() {		
-		return new Produto(descricao, precoUnitario);
+		return new Produto(descricao, preco_unitario);
 	}
 
 	
